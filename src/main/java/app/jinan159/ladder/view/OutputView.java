@@ -3,7 +3,7 @@ package app.jinan159.ladder.view;
 import app.jinan159.ladder.config.GameConfig;
 import app.jinan159.ladder.domain.LadderElement;
 import app.jinan159.ladder.domain.Participant;
-import app.jinan159.ladder.domain.gamemap.GameMap;
+import app.jinan159.ladder.domain.gamemap.TableGameMap;
 import app.jinan159.ladder.domain.gamemap.GameMapColumn;
 import app.jinan159.ladder.domain.gamemap.GameMapRow;
 import app.jinan159.ladder.utils.StringUtils;
@@ -40,7 +40,7 @@ public class OutputView implements Closeable {
         write(participantsToString(participants));
     }
 
-    public void writeGameMap(GameMap gameMap) throws IOException {
+    public void writeGameMap(TableGameMap gameMap) throws IOException {
         write(formatGameMap(gameMap));
     }
 
@@ -52,7 +52,7 @@ public class OutputView implements Closeable {
                 .orElse("") + "\n";
     }
 
-    private String formatGameMap(GameMap gameMap) {
+    private String formatGameMap(TableGameMap gameMap) {
         StringBuilder sb = new StringBuilder();
 
         for (GameMapRow row : gameMap) {
