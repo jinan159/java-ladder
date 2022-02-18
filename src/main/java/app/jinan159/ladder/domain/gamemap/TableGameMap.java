@@ -7,20 +7,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class TableGameMap implements Iterable<GameMapRow> {
+public class TableGameMap extends GameMap implements Iterable<GameMapRow> {
 
     private final static String ALERT_WRONG_POINT_ACCESS = "잘못된 좌표로 접근하셨습니다.";
 
     private final List<GameMapRow> gameMapRows;
-    private final int width;
-    private final int height;
 
     public TableGameMap(int participantCount, int height) {
-        this.width = participantCount * 2;
-        this.height = height;
+        super(participantCount * 2, height);
         gameMapRows = new ArrayList<>(height);
         for (int i = 0; i < height; i++) {
-            gameMapRows.add(new GameMapRow(width));
+            gameMapRows.add(new GameMapRow(getWidth()));
         }
 
         prepareGameMap(this);
@@ -31,14 +28,6 @@ public class TableGameMap implements Iterable<GameMapRow> {
                 .getColumn(x)
                 .orElseThrow(()->new IllegalStateException(ALERT_WRONG_POINT_ACCESS))
                 .getElement();
-    }
-
-    public int getWidth() {
-        return this.width;
-    }
-
-    public int getHeight() {
-        return this.height;
     }
 
     private void prepareGameMap(TableGameMap gameMap) {
