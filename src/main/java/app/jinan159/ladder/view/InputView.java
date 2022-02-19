@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InputView implements Closeable {
 
@@ -40,8 +41,8 @@ public class InputView implements Closeable {
     public List<Participant> readParticipants() {
         System.out.printf(Q_NAMES_OF_PARTICIPANTS, config.getNameLength());
         String[] names = readNames();
-        return Arrays.stream(names)
-                .map(Participant::new)
+        return IntStream.range(0,names.length)
+                .mapToObj(i -> new Participant(i+1, names[i]))
                 .collect(Collectors.toList());
     }
 
