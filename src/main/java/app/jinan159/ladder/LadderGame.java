@@ -1,6 +1,7 @@
 package app.jinan159.ladder;
 
 import app.jinan159.ladder.config.GameConfig;
+import app.jinan159.ladder.domain.LadderResult;
 import app.jinan159.ladder.view.InputView;
 import app.jinan159.ladder.view.OutputView;
 import app.jinan159.ladder.view.TableOutputView;
@@ -15,12 +16,14 @@ public class LadderGame {
     private final TableGameMap gameMap;
     private final GameConfig config;
     private final List<Participant> participants;
+    private final List<LadderResult> ladderResults;
 
     private LadderGame(int nameLength) {
         config = GameConfig.createWithNameLength(nameLength);
 
         try (InputView inputView = InputView.createWithConfig(config)) {
             this.participants = inputView.readParticipants();
+            this.ladderResults = reader.readLadderResults();
             int height = inputView.readHeight();
             this.gameMap = new TableGameMap(participants.size(), height);
         }
@@ -35,6 +38,7 @@ public class LadderGame {
         try (OutputView<TableGameMap> writer = TableOutputView.createWithConfig(config)) {
             writer.writeParticipants(this.participants);
             writer.writeGameMap(gameMap);
+            writer.writeLadderResults(this.ladderResults);
         }
     }
 

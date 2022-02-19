@@ -2,6 +2,7 @@ package app.jinan159.ladder.view;
 
 import app.jinan159.ladder.config.GameConfig;
 import app.jinan159.ladder.domain.LadderElement;
+import app.jinan159.ladder.domain.LadderResult;
 import app.jinan159.ladder.domain.Participant;
 import app.jinan159.ladder.domain.gamemap.GameMapColumn;
 import app.jinan159.ladder.domain.gamemap.GameMapRow;
@@ -47,6 +48,11 @@ public class TableOutputView extends OutputView<TableGameMap> {
         write(formatGameMap(gameMap));
     }
 
+    @Override
+    public void writeLadderResults(List<LadderResult> ladderResult) throws IOException {
+        write(LadderResultsToString(ladderResult));
+    }
+
     private String participantsToString(List<Participant> participants) {
         return participants.stream()
                 .map(Participant::getName)
@@ -64,6 +70,14 @@ public class TableOutputView extends OutputView<TableGameMap> {
         }
 
         return sb.toString();
+    }
+
+    private String LadderResultsToString(List<LadderResult> participants) {
+        return participants.stream()
+                .map(LadderResult::getName)
+                .map(name -> StringUtils.padLeftRight(name, config.getNameLength()))
+                .reduce((nested, name) -> nested + " " + name)
+                .orElse("") + "\n";
     }
 
     private String rowToString(GameMapRow row) {

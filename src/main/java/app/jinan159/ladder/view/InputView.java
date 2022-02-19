@@ -1,6 +1,7 @@
 package app.jinan159.ladder.view;
 
 import app.jinan159.ladder.config.GameConfig;
+import app.jinan159.ladder.domain.LadderResult;
 import app.jinan159.ladder.domain.Participant;
 import app.jinan159.ladder.validation.InputValidator;
 
@@ -17,6 +18,7 @@ public class InputView implements Closeable {
 
     private final static String SPLITER = ",";
     private final static String Q_NAMES_OF_PARTICIPANTS = "참여할 사람을 입력해주세요.(%d자 이하, 이름은 쉼표 '" + SPLITER + "' 로 구분해주세요.)\n";
+    private final static String Q_NAMES_OF_RESULTS = "실행 결과를 입력하세요.(5자 이하, 이름은 쉼표 '" + SPLITER + "' 로 구분해주세요.)";
     private final static String Q_MAX_LADDER_HEIGHT = "최대 사다리 높이는 몇 개인가요?(1개 이상)";
     private final static String ALERT_NUMBER_REQUIRED = "(주의) 숫자만 입력해 주세요.";
 
@@ -43,6 +45,14 @@ public class InputView implements Closeable {
         String[] names = readNames();
         return IntStream.range(0,names.length)
                 .mapToObj(i -> new Participant(i+1, names[i]))
+                .collect(Collectors.toList());
+    }
+
+    public List<LadderResult> readLadderResults() {
+        System.out.println(Q_NAMES_OF_RESULTS);
+        String[] names = readNames();
+        return IntStream.range(0,names.length)
+                .mapToObj(i -> new LadderResult(i + 1, names[i]))
                 .collect(Collectors.toList());
     }
 
