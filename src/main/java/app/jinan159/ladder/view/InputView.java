@@ -63,10 +63,20 @@ public class InputView implements Closeable {
 
     private int readPositiveNumber() {
         try {
-            int input = sc.nextInt();
+            int input = readNumber();
             validator.validateIsPositive(input);
             return input;
         } catch (IllegalArgumentException | NoSuchElementException e) {
+            System.out.println(ALERT_NUMBER_REQUIRED);
+            return readPositiveNumber();
+        }
+    }
+
+    private int readNumber() {
+        try {
+            String input = sc.nextLine().trim();
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
             System.out.println(ALERT_NUMBER_REQUIRED);
             return readPositiveNumber();
         }
