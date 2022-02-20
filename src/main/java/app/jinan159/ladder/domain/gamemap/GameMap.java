@@ -1,6 +1,7 @@
 package app.jinan159.ladder.domain.gamemap;
 
 import app.jinan159.ladder.domain.LadderElement;
+import app.jinan159.ladder.domain.Point;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,6 +25,10 @@ public class GameMap implements Iterable<GameMapRow> {
         }
 
         prepareGameMap(this);
+    }
+
+    public LadderElement get(Point point) {
+        return get(point.getX(), point.getY());
     }
 
     public LadderElement get(int x, int y) {
