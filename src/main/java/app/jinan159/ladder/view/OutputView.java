@@ -2,6 +2,7 @@ package app.jinan159.ladder.view;
 
 import app.jinan159.ladder.config.GameConfig;
 import app.jinan159.ladder.domain.LadderElement;
+import app.jinan159.ladder.domain.LadderResult;
 import app.jinan159.ladder.domain.Participant;
 import app.jinan159.ladder.domain.gamemap.GameMap;
 import app.jinan159.ladder.domain.gamemap.GameMapColumn;
@@ -44,9 +45,21 @@ public class OutputView implements Closeable {
         write(formatGameMap(gameMap));
     }
 
+    public void writeLadderResults(List<LadderResult> ladderResults) throws IOException {
+        write(ladderResultsToString(ladderResults));
+    }
+
     private String participantsToString(List<Participant> participants) {
         return participants.stream()
                 .map(Participant::getName)
+                .map(name -> StringUtils.padLeftRight(name, config.getNameLength()))
+                .reduce((nested, name) -> nested + " " + name)
+                .orElse("") + "\n";
+    }
+
+    private String ladderResultsToString(List<LadderResult> ladderResults) {
+        return ladderResults.stream()
+                .map(LadderResult::getName)
                 .map(name -> StringUtils.padLeftRight(name, config.getNameLength()))
                 .reduce((nested, name) -> nested + " " + name)
                 .orElse("") + "\n";

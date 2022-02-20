@@ -30,6 +30,10 @@ public class InputValidator {
         }
     }
 
+    public void validateNamesLength(String[] names, int requiredLength) throws IllegalArgumentException {
+        if (names == null || names.length != requiredLength) throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
+    }
+
     private void validateNamesLength(String input) throws IllegalArgumentException {
         if (input.length() > config.getNameLength()) {
             throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
