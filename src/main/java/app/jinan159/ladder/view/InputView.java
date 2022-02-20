@@ -43,8 +43,8 @@ public class InputView implements Closeable {
     public List<Participant> readParticipants() {
         System.out.printf(Q_NAMES_OF_PARTICIPANTS, config.getNameLength());
         String[] names = readNames();
-        return Arrays.stream(names)
-                .map(Participant::new)
+        return IntStream.range(0,names.length)
+                .mapToObj(i -> new Participant(i + 1, names[i]))
                 .collect(Collectors.toList());
     }
 
