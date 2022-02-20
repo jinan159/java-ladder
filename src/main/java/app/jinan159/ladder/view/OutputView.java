@@ -2,6 +2,7 @@ package app.jinan159.ladder.view;
 
 import app.jinan159.ladder.config.GameConfig;
 import app.jinan159.ladder.domain.LadderElement;
+import app.jinan159.ladder.domain.LadderEndPoint;
 import app.jinan159.ladder.domain.LadderResult;
 import app.jinan159.ladder.domain.Participant;
 import app.jinan159.ladder.domain.gamemap.GameMap;
@@ -37,29 +38,17 @@ public class OutputView implements Closeable {
         writer.write(s);
     }
 
-    public void writeParticipants(List<Participant> participants) throws IOException {
-        write(participantsToString(participants));
+    public void writeEndPoints(List<? extends LadderEndPoint> endPoints) throws IOException {
+        write(ladderEntPointsToString(endPoints));
     }
 
     public void writeGameMap(GameMap gameMap) throws IOException {
         write(formatGameMap(gameMap));
     }
 
-    public void writeLadderResults(List<LadderResult> ladderResults) throws IOException {
-        write(ladderResultsToString(ladderResults));
-    }
-
-    private String participantsToString(List<Participant> participants) {
-        return participants.stream()
-                .map(Participant::getName)
-                .map(name -> StringUtils.padLeftRight(name, config.getNameLength()))
-                .reduce((nested, name) -> nested + " " + name)
-                .orElse("") + "\n";
-    }
-
-    private String ladderResultsToString(List<LadderResult> ladderResults) {
-        return ladderResults.stream()
-                .map(LadderResult::getName)
+    private String ladderEntPointsToString(List<? extends LadderEndPoint> endPoints) {
+        return endPoints.stream()
+                .map(LadderEndPoint::getName)
                 .map(name -> StringUtils.padLeftRight(name, config.getNameLength()))
                 .reduce((nested, name) -> nested + " " + name)
                 .orElse("") + "\n";

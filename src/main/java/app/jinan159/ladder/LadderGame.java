@@ -35,9 +35,9 @@ public class LadderGame {
     // ------- public method ---------
     public void startGame() throws IOException {
         try (OutputView outputView = OutputView.createWithConfig(config)) {
-            outputView.writeParticipants(this.participants);
+            outputView.writeEndPoints(this.participants);
             outputView.writeGameMap(this.gameMap);
-            outputView.writeLadderResults(this.ladderResults);
+            outputView.writeEndPoints(this.ladderResults);
         }
     }
 

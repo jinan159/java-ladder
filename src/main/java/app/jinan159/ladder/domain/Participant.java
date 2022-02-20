@@ -1,6 +1,6 @@
 package app.jinan159.ladder.domain;
 
-public class Participant {
+public class Participant implements LadderEndPoint {
 
     private final String name;
 
@@ -8,6 +8,7 @@ public class Participant {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
