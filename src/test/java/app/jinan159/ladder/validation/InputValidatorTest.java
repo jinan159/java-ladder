@@ -1,7 +1,6 @@
 package app.jinan159.ladder.validation;
 
 import app.jinan159.ladder.config.GameConfig;
-import app.jinan159.ladder.utils.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -153,4 +152,33 @@ class InputValidatorTest {
         }
     }
 
+    @Nested
+    @DisplayName("validateNameDuplicated 메소드는")
+    class ValidateNameDuplicatedTest{
+        @Test
+        @DisplayName("중복된 이름이 있으면 IllegalArgumentException 예외가 발생한다.")
+        void nameDuplicated() {
+            // given
+            InputValidator validator = InputValidator.createWithConfig(null);
+            String[] names = {"hello", "world", "hello"};
+
+            // then
+            assertThrows(IllegalArgumentException.class, () -> validator.validateNameDuplicated(names));
+        }
+
+        @Test
+        @DisplayName("중복된 이름이 없으면 아무일도 일어나지 않는다.")
+        void nameIsNotDuplicated() {
+            // given
+            InputValidator validator = InputValidator.createWithConfig(null);
+            String[] names = {"hello", "world", "jay"};
+
+            // then
+            try {
+                validator.validateNameDuplicated(names);
+            } catch (Exception e) {
+                fail();
+            }
+        }
+    }
 }

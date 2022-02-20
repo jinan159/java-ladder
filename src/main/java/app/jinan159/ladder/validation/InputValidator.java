@@ -2,6 +2,8 @@ package app.jinan159.ladder.validation;
 
 import app.jinan159.ladder.config.GameConfig;
 
+import java.util.Set;
+
 public class InputValidator {
 
     private final String ALERT_VALIDATION_FAILED = "(주의) 입력하신 항목을 다시한번 확인해 주세요.";
@@ -34,10 +36,13 @@ public class InputValidator {
         if (names == null || names.length != requiredLength) throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
     }
 
-    private void validateNamesLength(String input) throws IllegalArgumentException {
-        if (input.length() > config.getNameLength()) {
+    public void validateNameDuplicated(String[] names) throws IllegalArgumentException {
+        Set.of(names);
+    }
+
+    private void validateNameLength(String name) throws IllegalArgumentException {
+        if (name.length() > config.getNameLength()) {
             throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
         }
     }
-
 }
