@@ -23,7 +23,7 @@ public class LadderGame {
 
         try (InputView inputView = InputView.createWithConfig(config)) {
             this.participants = inputView.readParticipants();
-            this.ladderResults = reader.readLadderResults();
+            this.ladderResults = inputView.readLadderResults();
             int height = inputView.readHeight();
             this.gameMap = new TableGameMap(participants.size(), height);
         }
