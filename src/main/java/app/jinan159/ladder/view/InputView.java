@@ -16,9 +16,9 @@ import java.util.stream.IntStream;
 
 public class InputView implements Closeable {
 
-    private final static String SPLITER = ",";
-    private final static String Q_NAMES_OF_PARTICIPANTS = "참여할 사람을 입력해주세요.(%d자 이하, 이름은 쉼표 '" + SPLITER + "' 로 구분해주세요.)\n";
-    private final static String Q_NAMES_OF_RESULTS = "실행 결과를 입력하세요.(%d자 이하, 쉼표 '" + SPLITER + "' 로 구분해주세요.)\n";
+    private final static String SPLITTER = ",";
+    private final static String Q_NAMES_OF_PARTICIPANTS = "참여할 사람을 입력해주세요.(%d자 이하, 이름은 쉼표 '" + SPLITTER + "' 로 구분해주세요.)\n";
+    private final static String Q_NAMES_OF_RESULTS = "실행 결과를 입력하세요.(%d자 이하, 쉼표 '" + SPLITTER + "' 로 구분해주세요.)\n";
     private final static String Q_MAX_LADDER_HEIGHT = "최대 사다리 높이는 몇 개인가요?(1개 이상)";
     private final static String ALERT_NUMBER_REQUIRED = "(주의) 숫자만 입력해 주세요.";
 
@@ -63,7 +63,7 @@ public class InputView implements Closeable {
 
     private String[] readNames() {
         try {
-            String[] names = sc.nextLine().split(SPLITER);
+            String[] names = sc.nextLine().split(SPLITTER);
             validator.validateNames(names);
             return names;
         } catch (IllegalArgumentException | NoSuchElementException e) {
