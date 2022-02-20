@@ -64,7 +64,7 @@ public class InputView implements Closeable {
     private String[] readNames() {
         try {
             String[] names = sc.nextLine().split(SPLITTER);
-            validator.validateNames(names);
+            validator.validateAllNamesLength(names);
             return names;
         } catch (IllegalArgumentException | NoSuchElementException e) {
             System.out.println(e.getMessage());
@@ -75,7 +75,7 @@ public class InputView implements Closeable {
     private String[] readNames(int requiredLength) {
         try {
             String[] names = readNames();
-            validator.validateNamesLength(names, requiredLength);
+            validator.validateNamesCount(names, requiredLength);
             return names;
         } catch (IllegalArgumentException | NoSuchElementException e) {
             System.out.println(e.getMessage());

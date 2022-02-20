@@ -50,8 +50,8 @@ class InputValidatorTest {
     }
 
     @Nested
-    @DisplayName("validateNames 메소드는")
-    class ValidateNamesTest{
+    @DisplayName("validateAllNamesLength 메소드는")
+    class ValidateAllNamesLengthTest{
         @Test
         @DisplayName("names 가 빈 배열이면 아무일도 일어나지 않는다.")
         void emptyArraySuccess() {
@@ -62,7 +62,7 @@ class InputValidatorTest {
 
             // then
             try {
-                validator.validateNames(names);
+                validator.validateAllNamesLength(names);
             } catch (Exception e) {
                 fail();
             }
@@ -76,7 +76,7 @@ class InputValidatorTest {
             InputValidator validator = InputValidator.createWithConfig(config);
 
             // then
-            assertThrows(IllegalArgumentException.class, () -> validator.validateNames(null));
+            assertThrows(IllegalArgumentException.class, () -> validator.validateAllNamesLength(null));
         }
 
         @Test
@@ -89,7 +89,7 @@ class InputValidatorTest {
 
             // then
             try {
-                validator.validateNames(names);
+                validator.validateAllNamesLength(names);
             } catch (Exception e) {
                 fail();
             }
@@ -104,7 +104,52 @@ class InputValidatorTest {
             String[] names = {"", "a", "abcde", "123456"};
 
             // then
-            assertThrows(IllegalArgumentException.class, () -> validator.validateNames(names));
+            assertThrows(IllegalArgumentException.class, () -> validator.validateAllNamesLength(names));
+        }
+    }
+
+    @Nested
+    @DisplayName("validateNamesCount 메소드는")
+    class ValidateNamesCountTest{
+        @Test
+        @DisplayName("names 와 requiredLength 가 같으면 아무일도 일어나지 않는다.")
+        void lengthIsSame() {
+            // given
+            InputValidator validator = InputValidator.createWithConfig(null);
+            String[] names = {"hello", "world"};
+            int requiredLength = names.length;
+
+            // then
+            try {
+                validator.validateNamesCount(names, requiredLength);
+            } catch (Exception e) {
+                fail();
+            }
+        }
+
+        @Test
+        @DisplayName("names 와 requiredLength 가 다르면 IllegalArgumentException 예외가 발생한다.")
+        void lengthIsDifferent() {
+            // given
+            InputValidator validator = InputValidator.createWithConfig(null);
+            String[] names = {"hello", "world"};
+            int requiredLength = names.length - 1;
+
+            // then
+            assertThrows(IllegalArgumentException.class, () -> validator.validateNamesCount(names, requiredLength));
+
+        }
+
+        @Test
+        @DisplayName("names 가 null 이면 IllegalArgumentException 예외가 발생한다.")
+        void namesIsNull() {
+            // given
+            InputValidator validator = InputValidator.createWithConfig(null);
+            String[] names = null;
+            int requiredLength = 0;
+
+            // then
+            assertThrows(IllegalArgumentException.class, () -> validator.validateNamesCount(names, requiredLength));
         }
     }
 

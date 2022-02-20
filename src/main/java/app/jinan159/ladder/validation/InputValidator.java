@@ -22,15 +22,15 @@ public class InputValidator {
         }
     }
 
-    public void validateNames(String[] names) throws IllegalArgumentException {
+    public void validateAllNamesLength(String[] names) throws IllegalArgumentException {
         if (names == null) throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
 
         for (String name : names) {
-            validateNamesLength(name);
+            validateNameLength(name);
         }
     }
 
-    public void validateNamesLength(String[] names, int requiredLength) throws IllegalArgumentException {
+    public void validateNamesCount(String[] names, int requiredLength) throws IllegalArgumentException {
         if (names == null || names.length != requiredLength) throw new IllegalArgumentException(ALERT_VALIDATION_FAILED);
     }
 
